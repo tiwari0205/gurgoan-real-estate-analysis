@@ -19,6 +19,7 @@ df['status'] = df['status'].str.strip().str.lower()
 df['rera_approval'] = df['rera_approval'].str.strip().str.lower().map({'approved by rera': True, 'not approved by rera': False})
 df['flat_type'] = df['flat_type'].str.strip().str.lower()
 
+# Removing duplicates after cleaning
 df = df.drop_duplicates()
 
 # print(df)
@@ -67,8 +68,6 @@ most_expensive_property_type = df.groupby('flat_type')['rate_per_sqft'].mean().i
 print(f"The most expensive property type is {most_expensive_property_type}.")
 
 # Question 9: Do certain builders price higher?
-# print(df.groupby("company_name")["rate_per_sqft"].mean().sort_values(ascending=False).head(5))
-# print name of top 5 
 print("The top 5 builders that price higher are:", end=" ")
 top_5_builders = df.groupby("company_name")["rate_per_sqft"].mean().sort_values(ascending=False).head(5)
 for builder in top_5_builders.index:
